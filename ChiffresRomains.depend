@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1542620595 source:c:\users\alexi\desktop\ludus\f2\c\helloworldapp\chiffresromains\main.c
+	<stdio.h>
+	<stdlib.h>
+

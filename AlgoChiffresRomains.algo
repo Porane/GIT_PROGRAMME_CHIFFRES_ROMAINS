@@ -1,0 +1,101 @@
+ALGORITHME : AlgoChiffresRomains
+//BUT : faire la conversion des chiffres arabes en chiffres romains et vice-versa
+//ENTREES : un entier ou une chaine de caracteres saisis par l'utilisateur
+//SORTIES : la conversion
+
+TYPE
+    cTbChiffreRomain = TABLEAU [0..6] DE CARACTERE
+    cTbChiffreArabe = TABLEAU [0..6] DE ENTIER
+    cChiffreRom = TABLEAU [0..29] DE CARACTERE
+
+VAR
+    
+    nNbre : ENTIER
+    cpt : ENTIER
+    res : ENTIER
+    dernierChiffre : ENTIER
+    nChoix : ENTIER
+
+    cTbChiffreRomain[0] <- M
+    cTbChiffreRomain[1] <- D 
+    cTbChiffreRomain[2] <- C 
+    cTbChiffreRomain[3] <- L  
+    cTbChiffreRomain[4] <- X
+    cTbChiffreRomain[5] <- V 
+    cTbChiffreRomain[6] <- I 
+
+    cTbChiffreArabe[0] <- 1000 
+    cTbChiffreArabe[1] <- 500
+    cTbChiffreArabe[2] <- 100
+    cTbChiffreArabe[3] <- 50
+    cTbChiffreArabe[4] <- 10
+    cTbChiffreArabe[5] <- 5
+    cTbChiffreArabe[6] <- 1
+
+    nNbre <- 0
+    cpt <- 0
+    res <- 0
+    dernierChiffre <- 0
+    nChoix <- 0
+
+    ECRIRE "Bonjour, veuillez taper 1 pour la conversion chiffres arabes vers chiffres romains et 2 pour le contraire : "
+    LIRE (nChoix)
+
+    SI (nChoix=1) ALORS 
+    DEBUT
+        ECRIRE "Veuillez rentrer votre nombre : "
+        LIRE nNbre
+        ECRIRE "Le nombre choisi est : "
+
+        TANT QUE (cpt<7) FAIRE
+        DEBUT
+            SI ((nNbre MOD cTbChiffreArabe[cpt])>=(cTbChiffreArabe[cpt+1]*4) ET cpt<6) ALORS
+            DEBUT 
+                ECRIRE (cTbChiffreRomain[cpt+1])
+                nNbre <- nNbre + cTbChiffreArabe[cpt+1]
+                cpt <- 0
+                CONTINUER //fonction permettant de faire un saut inconditionnel et donc de terminer la boucle prématurément
+            FIN
+
+            TANT QUE (nNbre>=cTbChiffreArabe[cpt]) FAIRE 
+            DEBUT
+                ECRIRE (cTbChiffreRomain[cpt])
+                nNbre <- nNbre - cTbChiffreArabe[cpt]
+            FIN
+            cpt <- cpt+1
+        FIN
+    FIN
+
+    SINON SI (nChoix = 2) ALORS
+    DEBUT
+        ECRIRE "Veuillez rentrer votre chiffre romain en lettres majuscules : "
+        LIRE (cChiffreRom)
+        ECRIRE "Le chiffre rimain choisi est : "
+
+        TANT QUE (cChiffreRom[cpt]) FAIRE
+        DEBUT
+            nNbre=0;
+            TANT QUE (cTbChiffreRomain[nNbre]) FAIRE 
+            DEBUT 
+                SI (cChiffreRom[cpt]=cTbChiffreRomain[nNbre]) ALORS
+                DEBUT
+                    res <- res+cTbChiffreArabe[nNbre]
+                    SI (dernierChiffre<cTbChiffreArabe[nNbre]) ALORS
+                    DEBUT
+                        res <- res-dernierChiffre*2
+                    FIN
+                    dernierChiffre <- cTbChiffreArabe[nNbre]
+                FIN
+                nNbre <- nNbre+1
+            FIN
+            cpt <- cpt+1
+        FIN
+        ECRIRE (res)
+    FIN
+
+    SINON
+    DEBUT
+        ECRIRE "Vous etes un monstre"
+    FIN
+
+FIN;
